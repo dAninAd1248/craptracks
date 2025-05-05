@@ -1,4 +1,5 @@
 import { getTrackIds, getTrackPath } from './scripts/scripts';
+import Upload from './Upload';
 
 import './App.css'
 
@@ -13,18 +14,24 @@ function AudioPlayer({ src }) {
 
 function Post({ trackId }) {
   return (
-    <AudioPlayer src={getTrackPath(trackId)} />
+    <AudioPlayer src={getTrackPath(trackId)} style={{padding: 10}}/>
   )
 }
 
 function App() {
   const tracks = getTrackIds();
   return (
-    <table>
+    <div
+    className='children-mb'
+    style={{
+      display: "flex",
+      flexDirection: "column"
+    }}>
+      <Upload />
       {tracks.map(track =>
-        <tr><Post trackId={track} /></tr>
+        <Post trackId={track} />
       )}
-    </table>
+    </div>
   )
 }
 
