@@ -1,4 +1,5 @@
-import { getTrackIds, getTrackPath } from './scripts/scripts';
+import React, { useState, useEffect } from 'react'
+import { getAllTrackNames, getTrackPath } from './scripts/scripts';
 import Upload from './Upload';
 
 import './App.css'
@@ -12,24 +13,37 @@ function AudioPlayer({ src }) {
   );
 }
 
-function Post({ trackId }) {
+const Post = ({ trackName }) => {
   return (
-    <AudioPlayer src={getTrackPath(trackId)} style={{padding: 10}}/>
+    <div style={{ display: 'flex', alignItems: 'center'}}>
+      <AudioPlayer src={getTrackPath(trackName)} />
+      <span style={{ marginLeft: 10 }}>{trackName}</span>
+    </div>
   )
 }
 
-function App() {
-  const tracks = getTrackIds();
+const App = () => {
+  const [tracks, setTracks] = useState([])
+
+  useEffect(() => {
+    async function fetchTracks() {
+      const ids = await getAllTrackNames()
+      setTracks(ids)
+    }
+
+    fetchTracks()
+  }, [])
+
   return (
     <div
-    className='children-mb'
-    style={{
-      display: "flex",
-      flexDirection: "column"
-    }}>
+      className='children-mb'
+      style={{
+        display: "flex",
+        flexDirection: "column"
+      }}>
       <Upload />
       {tracks.map(track =>
-        <Post trackId={track} />
+        <Post key={track} trackName={track} />
       )}
     </div>
   )
