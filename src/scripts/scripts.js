@@ -38,12 +38,6 @@ export function getTrackPath(trackId) {
 // Upload file using standard upload
 export async function uploadFile(file) {
   console.log(bucket, file);
-  const { data, error } = await supabase.storage.from(bucket).upload(file.name, file)
-  if (error) {
-    console.error(error);
-    return false;
-  } else {
-    console.log("ts worked");
-    return true;
-  }
+  const { data, error } = await supabase.storage.from(bucket).upload(file.name, file);
+  if (error) throw error;
 }

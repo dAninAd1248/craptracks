@@ -1,26 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { getAllTrackNames, getTrackPath } from './scripts/scripts';
+import { getAllTrackNames } from './scripts/scripts';
 import Upload from './Upload';
+import Post from './Post';
 
 import './App.css'
-
-function AudioPlayer({ src }) {
-  return (
-    <audio controls>
-      <source src={src} type="audio/mpeg" />
-      Your browser does not support the audio element.
-    </audio>
-  );
-}
-
-const Post = ({ trackName }) => {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center'}}>
-      <AudioPlayer src={getTrackPath(trackName)} />
-      <span style={{ marginLeft: 10 }}>{trackName}</span>
-    </div>
-  )
-}
 
 const App = () => {
   const [tracks, setTracks] = useState([])
